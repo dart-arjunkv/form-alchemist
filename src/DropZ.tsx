@@ -13,7 +13,7 @@ const StyledDropZ = styled.div`
         padding: 0.7em;
         width: 200px;
         background-color: var(--white);
-        border-radius: 3px;
+        border-radius: 4px;
     }
 `;
 

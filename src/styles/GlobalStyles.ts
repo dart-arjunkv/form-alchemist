@@ -2,6 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
     .form-alcmst {
+        --primary-color: #3350E1;
         --white: hsl(0, 0%, 100%);
         --black: hsl(0, 0%, 0%);
 
@@ -114,6 +115,36 @@ const GlobalStyle = createGlobalStyle`
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
                 scroll-behavior: auto !important;
+            }
+        }
+
+        // common styles
+
+        & button {
+            padding: .2em .6em;
+            font-size: .8rem;
+            background-color: transparent;
+            color: var(--grey-800);
+            border: 1px solid var(--grey-300);
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 120ms ease-in;
+
+            &:hover {
+                background-color: var(--grey-100);
+            }
+
+            & svg {
+                margin-right: .4em;
+                width: 20px;
+                display: flex;
+            }
+
+            & svg path {
+                 fill: var(--grey-800);
             }
         }
     }
