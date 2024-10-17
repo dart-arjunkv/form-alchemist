@@ -1,8 +1,10 @@
+import styled from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
 import { FormElement } from './types/FormElements';
 import Picker from './Picker';
 import { PreviewIcon, SaveIcon } from './assets/Icons';
-import styled from 'styled-components';
+import Properties from './Properties';
+import Drop from './Drop';
 
 type BuilerProps = {
     title?: string;
@@ -19,9 +21,12 @@ type DragElement = {
 type DStart = { type: FormElement['elementType']; uid: string; isWidget: boolean };
 
 const StyledBuilder = styled.div`
-    & .form-alcmst__header {
-        padding: 0.8em 1em;
-        background-color: var(--grey-50);
+    height: 100%;
+
+    .form-alcmst__header {
+        height: 50px;
+        padding: 0 0.5em 0 1em;
+        background-color: var(--white);
         border-bottom: 1px solid var(--grey-100);
         display: flex;
         justify-content: space-between;
@@ -29,11 +34,11 @@ const StyledBuilder = styled.div`
 
         & > div:first-child {
             font-size: 0.9rem;
-            color: var(--grey-800);
+            color: var(--grey-600);
         }
 
         & > div:first-child > span {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--grey-1000);
         }
 
@@ -43,38 +48,27 @@ const StyledBuilder = styled.div`
 
         & > div:last-child > button {
             margin-left: 0.8em;
+            background-color: transparent;
+            color: var(--grey-800);
+            border-color: var(--grey-100);
+
+            &:hover {
+                background-color: var(--grey-50);
+            }
+
+            & svg path {
+                fill: var(--grey-800);
+            }
         }
     }
 
-    & .form-alcmst__body {
+    .form-alcmst__body {
+        height: calc(100% - 50px);
         display: flex;
 
-        & > div:first-child {
-            padding: 1em;
-            width: calc(100% - 200px);
-            background-color: var(--grey-50);
-            /* background-image: linear-gradient(to right, #80808012 1px, transparent 1px),
-                linear-gradient(to bottom, #80808012 1px, transparent 1px);
-            background-size: 6px 6px; */
-            /* background-image: radial-gradient(var(--grey-200) 1px, transparent 1px);
-            background-size: 10px 10px; */
-            background-image: linear-gradient(var(--grey-100) 2px, transparent 2px),
-                linear-gradient(90deg, var(--grey-100) 2px, transparent 2px),
-                linear-gradient(var(--grey-100) 1px, transparent 1px),
-                linear-gradient(90deg, var(--grey-100) 1px, var(--grey-50) 1px);
-            background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
-            background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+        & > div:nth-child(2) {
+            width: calc(100% - 200px - 250px); // calc with with with of picker and properties
             border-right: 1px solid var(--grey-100);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        & > div:first-child > div {
-            width: 80%;
-            height: 100%;
-            background-color: var(--white);
-            border-radius: 4px;
         }
     }
 `;
@@ -106,23 +100,17 @@ const Builder: React.FC<BuilerProps> = (props) => {
                     Form: <span>{props.title || 'Custom Form'}</span>
                 </div>
                 <div>
-                    <button>
-                        <span>{PreviewIcon}</span>
-                        Preview
-                    </button>
-                    <button>
-                        <span>{SaveIcon}</span>
-                        Save
-                    </button>
+                    <button>{PreviewIcon}Preview</button>
+                    <button>{SaveIcon}Save</button>
                 </div>
             </div>
+
             <div className='form-alcmst__body'>
+                <Picker dStart={(type, uid, isWidget) => dragStart({ type, uid, isWidget })} dStop={dragEnd} />
                 <div>
-                    <div></div>
+                    <Drop />
                 </div>
-                <div>
-                    <Picker dStart={(type, uid, isWidget) => dragStart({ type, uid, isWidget })} dStop={dragEnd} />
-                </div>
+                <Properties />
             </div>
         </StyledBuilder>
     );

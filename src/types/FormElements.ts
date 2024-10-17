@@ -207,6 +207,45 @@ export type TButton = {
     uid: string;
 };
 
+export type TTitle = {
+    elementType: 'Title';
+    text: string;
+
+    styles: string;
+    uid: string;
+};
+
+export type TParagraph = {
+    elementType: 'Paragraph';
+    text: string;
+
+    styles: string;
+    uid: string;
+};
+
+export type TSeparator = {
+    elementType: 'Separator';
+
+    styles: string;
+    uid: string;
+};
+
+export type TSpacer = {
+    elementType: 'Spacer';
+    height: string;
+
+    styles: string;
+    uid: string;
+};
+
+export type TSection = {
+    elementType: 'Section';
+    children: string; //temp
+
+    styles: string;
+    uid: string;
+};
+
 type Temp =
     | TName
     | TAddress
@@ -221,7 +260,12 @@ type Temp =
     | TRadio
     | TDate
     | TTime
-    | TButton;
+    | TButton
+    | TTitle
+    | TParagraph
+    | TSeparator
+    | TSpacer
+    | TSection;
 
 // export type FormElement = Partial<
 // 	Temp & {
