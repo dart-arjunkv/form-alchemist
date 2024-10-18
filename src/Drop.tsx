@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { FormElement } from './types/FormElements';
+import { useDroppable } from '@dnd-kit/core';
 
 type DropZProps = {
     dStart?: (type: FormElement['elementType'], uid: string, isWidget: boolean) => void;
@@ -27,9 +28,15 @@ const StyledDrop = styled.div`
 `;
 
 const Drop: React.FC<DropZProps> = (props: DropZProps) => {
+    const { setNodeRef } = useDroppable({
+        id: 'section',
+        data: {
+            type: 'main'
+        }
+    });
     return (
         <StyledDrop>
-            <div></div>
+            <div ref={setNodeRef}></div>
         </StyledDrop>
     );
 };

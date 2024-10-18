@@ -1,19 +1,23 @@
 import { useDraggable } from '@dnd-kit/core';
-import { CSS } from '@dnd-kit/utilities';
 
 type TDraggable = {
     children: React.ReactNode;
     id: string;
+    uid: string;
+    isWidget: boolean;
 };
 
-export function Draggable({ id, children }: TDraggable) {
-    const { attributes, listeners, setNodeRef, transform } = useDraggable({ id });
-    const style = {
-        transform: CSS.Translate.toString(transform)
-    };
+export function Draggable({ id, uid, isWidget, children }: TDraggable) {
+    const { attributes, listeners, setNodeRef } = useDraggable({
+        id,
+        data: {
+            uid,
+            isWidget
+        }
+    });
 
     return (
-        <div ref={setNodeRef} {...listeners} {...attributes} style={style}>
+        <div ref={setNodeRef} {...listeners} {...attributes}>
             {children}
         </div>
     );

@@ -1,28 +1,7 @@
 import styled from 'styled-components';
 import { TPicker } from './types/TBuilder';
-import { FormElement } from './types/FormElements';
-import {
-    CalendarIcon,
-    CheckboxGroupIcon,
-    CheckboxIcon,
-    CursorClickIcon,
-    LocationIcon,
-    MailIcon,
-    NumberIcon,
-    ParagraphIcon,
-    PersonIcon,
-    PhoneIcon,
-    RadioIcon,
-    SectionIcon,
-    SelectIcon,
-    SeparatorIcon,
-    SpacerIcon,
-    TextBoxIcon,
-    TextFieldIcon,
-    TimePickerIcon,
-    TitleIcon
-} from './assets/Icons';
 import { Draggable } from './Draggable';
+import { formElements, layoutElements, TPickerElement } from './PickerElements';
 
 const StyledPicker = styled.div`
     padding: 10px;
@@ -83,90 +62,33 @@ const StyledPicker = styled.div`
     }
 `;
 
-const Picker: React.FC<TPicker> = ({ dStart, dStop }: TPicker) => {
+export const PickerElement: React.FC<TPickerElement> = ({ icon, text }) => {
+    return (
+        <>
+            {icon}
+            <span>{text}</span>
+        </>
+    );
+};
+
+const Picker: React.FC<TPicker> = (props: TPicker) => {
     return (
         <StyledPicker>
             <h2>Layout Elements</h2>
             <div>
-                <Draggable id={'Title'}>
-                    {TitleIcon}
-                    <span>Title</span>
-                </Draggable>
-                <div>
-                    {ParagraphIcon}
-                    <span>Paragraph</span>
-                </div>
-                <div>
-                    {SeparatorIcon}
-                    <span>Separator</span>
-                </div>
-                <div>
-                    {SpacerIcon}
-                    <span>Spacer</span>
-                </div>
-                <div>
-                    {SectionIcon}
-                    <span>Section</span>
-                </div>
+                {layoutElements.map((el) => (
+                    <Draggable key={el.element} id={el.element} uid='' isWidget={true}>
+                        <PickerElement {...el} />
+                    </Draggable>
+                ))}
             </div>
             <h2>Form Elements</h2>
             <div>
-                <div>
-                    {PersonIcon}
-                    <span>Name</span>
-                </div>
-                <div>
-                    {LocationIcon}
-                    <span>Address</span>
-                </div>
-                <div>
-                    {MailIcon}
-                    <span>Email</span>
-                </div>
-                <div>
-                    {PhoneIcon}
-                    <span>Phone No.</span>
-                </div>
-                <div>
-                    {TextFieldIcon}
-                    <span>Text</span>
-                </div>
-                <div>
-                    {TextBoxIcon}
-                    <span>TextArea</span>
-                </div>
-                <div>
-                    {NumberIcon}
-                    <span>Number</span>
-                </div>
-                <div>
-                    {SelectIcon}
-                    <span>Dropdown</span>
-                </div>
-                <div>
-                    {CheckboxIcon}
-                    <span>Checkbox</span>
-                </div>
-                <div>
-                    {CheckboxGroupIcon}
-                    <span>Checkbox Group</span>
-                </div>
-                <div>
-                    {RadioIcon}
-                    <span>Radio</span>
-                </div>
-                <div>
-                    {CalendarIcon}
-                    <span>Date</span>
-                </div>
-                <div>
-                    {TimePickerIcon}
-                    <span>Time</span>
-                </div>
-                <div>
-                    {CursorClickIcon}
-                    <span>Button</span>
-                </div>
+                {formElements.map((el) => (
+                    <Draggable key={el.element} id={el.element} uid='' isWidget={true}>
+                        <PickerElement {...el} />
+                    </Draggable>
+                ))}
             </div>
         </StyledPicker>
     );

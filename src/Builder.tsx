@@ -5,6 +5,8 @@ import Picker from './Picker';
 import { PreviewIcon, SaveIcon } from './assets/Icons';
 import Properties from './Properties';
 import Drop from './Drop';
+import { DndContext, UniqueIdentifier } from '@dnd-kit/core';
+import DragOverlayWrapper from './DragOverlayWrapper';
 
 type BuilerProps = {
     title?: string;
@@ -66,7 +68,7 @@ const StyledBuilder = styled.div`
         height: calc(100% - 50px);
         display: flex;
 
-        & > div:nth-child(2) {
+        & > .form-alcmst__drop-wrap {
             width: calc(100% - 200px - 250px); // calc with with with of picker and properties
             border-right: 1px solid var(--grey-100);
         }
@@ -106,10 +108,13 @@ const Builder: React.FC<BuilerProps> = (props) => {
             </div>
 
             <div className='form-alcmst__body'>
-                <Picker dStart={(type, uid, isWidget) => dragStart({ type, uid, isWidget })} dStop={dragEnd} />
-                <div>
-                    <Drop />
-                </div>
+                <DndContext>
+                    <Picker dStart={(type, uid, isWidget) => dragStart({ type, uid, isWidget })} dStop={dragEnd} />
+                    <div className='form-alcmst__drop-wrap'>
+                        <Drop />
+                    </div>
+                    <DragOverlayWrapper />
+                </DndContext>
                 <Properties />
             </div>
         </StyledBuilder>
